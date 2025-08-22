@@ -8,7 +8,7 @@ const Projects = () => {
     {
       title: "Macros",
       description: "Social Nutrition Tracker",
-      period: "June 2024 - July 2024",
+      period: "June 2025 - July 2025",
       link: "https://github.com/chasereyn/Macros",
       image: "/images/macros.png",
       summary: "Full-stack nutrition tracking platform with social features, integrating USDA's food database. Features comprehensive meal tracking, social networking, and cross-platform support via web and Flutter mobile apps.",
