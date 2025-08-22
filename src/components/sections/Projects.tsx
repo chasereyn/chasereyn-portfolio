@@ -6,6 +6,15 @@ import FadeInSection from "@/components/FadeInSection"
 const Projects = () => {
   const projects = [
     {
+      title: "Macros",
+      description: "Social Nutrition Tracker",
+      period: "June 2024 - July 2024",
+      link: "https://github.com/chasereyn/Macros",
+      image: "/images/macros.png",
+      summary: "Full-stack nutrition tracking platform with social features, integrating USDA's food database. Features comprehensive meal tracking, social networking, and cross-platform support via web and Flutter mobile apps.",
+      technologies: ["Next.js 14", "Express.js", "MongoDB", "Flutter", "shadcn/ui", "Cloudinary"]
+    },
+    {
       title: "Flueo",
       description: "Language Learning Platform",
       period: "Jun 2025 - Present",
