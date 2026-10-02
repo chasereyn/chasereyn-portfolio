@@ -1,9 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export function useActiveSection() {
   const [activeSection, setActiveSection] = useState('about')
+  // The layout stays mounted across routes, so re-observe when the page changes.
+  const pathname = usePathname()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -27,7 +30,7 @@ export function useActiveSection() {
     return () => {
       sections.forEach((section) => observer.unobserve(section))
     }
-  }, [])
+  }, [pathname])
 
   return activeSection
 } 

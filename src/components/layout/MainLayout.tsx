@@ -1,6 +1,8 @@
 'use client'
 
 import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { SocialLinks } from "@/components/SocialIcons"
 import NoiseBackground from "@/components/NoiseBackground"
 import MouseGlow from "@/components/MouseGlow"
@@ -11,12 +13,15 @@ import { cn } from "@/lib/utils"
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const activeSection = useActiveSection()
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   const navItems = [
     { href: '#about', label: 'ABOUT' },
     { href: '#experience', label: 'EXPERIENCE' },
     { href: '#projects', label: 'PROJECTS' },
-    { href: '#contact', label: 'CONTACT' }
+    { href: '#contact', label: 'CONTACT' },
+    { href: '/blog', label: 'BLOG' }
   ]
 
   return (
@@ -50,7 +55,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               
               <nav className="space-y-4 lg:space-y-6">
                 {navItems.map((item) => {
-                  const isActive = activeSection === item.href.slice(1)
+                  const isSection = item.href.startsWith('#')
+                  const isActive = isSection
+                    ? isHome && activeSection === item.href.slice(1)
+                    : pathname.startsWith(item.href)
+                  const linkClass = cn(
+                    "block text-zinc-400 hover:text-purple-300 transition-colors text-sm tracking-widest pl-4",
+                    isActive && "text-purple-300"
+                  )
                   return (
                     <div key={item.href} className="relative">
                       <div 
@@ -59,15 +71,15 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                           isActive ? "opacity-100" : "opacity-0"
                         )}
                       />
-                      <ScrollLink 
-                        href={item.href} 
-                        className={cn(
-                          "block text-zinc-400 hover:text-purple-300 transition-colors text-sm tracking-widest pl-4",
-                          isActive && "text-purple-300"
-                        )}
-                      >
-                        {item.label}
-                      </ScrollLink>
+                      {isSection && isHome ? (
+                        <ScrollLink href={item.href} className={linkClass}>
+                          {item.label}
+                        </ScrollLink>
+                      ) : (
+                        <Link href={isSection ? `/${item.href}` : item.href} className={linkClass}>
+                          {item.label}
+                        </Link>
+                      )}
                     </div>
                   )
                 })}
